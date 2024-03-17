@@ -8,8 +8,6 @@ greetings_dict = { 1 : "Hello", 2 : "Hola", 3 : "Ola"}
 
 mode_dict = {1 : "User Mode", 2 : "Admin Mode"}
 
-admin_dict = {"Y" : "Yes", "N" : "No"}
-
 new_language = " "
 
 
@@ -31,24 +29,19 @@ def choose_mode_is_valid(mode_dict: Dict[int, str], mode_choice: int) -> bool:
     return found_key
 
 
-def print_admin_options(admin_dict: Dict[str, str])-> None:
-    for key in admin_dict:
-        print(str(key) + ":", admin_dict[key])
-
-
 def admin_greeter()-> None:
-    new_lang_choice = input("You have entered Admin Mode.\n" "Would you like to add a language to the Greeter?\n" "Y/N")
-    if (new_lang_choice.upper()) == "N":
-        choose_mode()
+    new_lang_choice: str = input("You have entered Admin Mode.\n" "Would you like to add a language to the Greeter?\n" "Y/N")
+    if new_lang_choice.upper() == 'N':
+            choose_mode()
+    elif new_lang_choice == 'Y':
+            language_adder()
     else:
-        language_adder()
-
+        print("Invalid choice. Please enter Y or N.")
 
 
 def exit_greeter(str)->None:
     print("Thank you for using The MultiLingual Greeter! Goodbye.")
     exit()
-
 
 
 def language_adder():
@@ -109,28 +102,32 @@ def greet(name: str, greetings_options: Dict[int, str], lang_choice: int) -> Non
 
 
 if __name__ == '__main__':
+    def multilingual_greet_menu():
+        print_mode_options(mode_dict)
+        chosen_mode = choose_mode()
+        while choose_mode_is_valid(mode_dict, chosen_mode) is False:
+            exit_greeter()
+        if chosen_mode == 1:
+            user_mode()
+        elif chosen_mode == 2:
+                admin_mode()
 
-def multilingual_greet_menu():
-    print_mode_options(mode_dict)
-    chosen_mode = choose_mode()
-    while choose_mode_is_valid(mode_dict, chosen_mode) is False:
-        exit_greeter()
-    if chosen_mode == 1:
-        user_mode()
-    elif chosen_mode == 2:
-            admin_mode()
-
-def user_mode():
-    print_language_options(lang_dict)
-    chosen_lang = language_input()
-    while language_choice_is_valid(lang_dict, chosen_lang) is False:
-        print("Invalid selection. Try again.")
+    def user_mode():
+        print_language_options(lang_dict)
         chosen_lang = language_input()
+        while language_choice_is_valid(lang_dict, chosen_lang) is False:
+            print("Invalid selection. Try again.")
+            chosen_lang = language_input()
 
-    selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
-    chosen_name = name_input(selected_prompt)
-    greet(chosen_name, greetings_dict, chosen_lang)
+        selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
+        chosen_name = name_input(selected_prompt)
+        greet(chosen_name, greetings_dict, chosen_lang)
 
 
-def admin_mode():
-    pass
+    def admin_mode():
+        print_admin_options(admin_dict)
+        admin_greeter()
+        language_adder()
+        name_adder()
+        greeting_adder()
+        exit_admin()
