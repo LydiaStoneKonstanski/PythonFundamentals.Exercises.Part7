@@ -20,7 +20,6 @@ def print_language_options(lang_options: Dict[int, str]) -> None:
         print(str(key) + ":", lang_options[key])
 """
    Given a dictionary, this functions iterates through the values and prints them out.
-
    :param lang_options: A dictionary
    Keys are integers representing a language id
    Values are strings representing the name of a language
@@ -33,8 +32,12 @@ def language_input() -> int:
 
     :return: An integer representing the language choice made by the user
     """
-    choice = input('Choose a language:')
-    return int(choice)
+    while True:
+        try:
+            choice = int(input('Choose a language:'))
+            return choice
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
 
 
 def language_choice_is_valid(lang_options: Dict[int, str], lang_choice: int) -> bool:
@@ -55,7 +58,6 @@ def language_choice_is_valid(lang_options: Dict[int, str], lang_choice: int) -> 
     return found_key
 
 
-
 def get_name_input(name_prompt_options: Dict[int, str], lang_choice: int) -> str:
     """
     This method takes in a dictionary and a key. It returns the value in the dictionary that has a key corresponding to
@@ -66,8 +68,8 @@ def get_name_input(name_prompt_options: Dict[int, str], lang_choice: int) -> str
     :param lang_choice: The language the user has chosen
     :return:
     """
-    ask_name = name_prompt_options[lang_choice]
-    return ask_name
+    name = name_prompt_options[lang_choice]
+    return name
 
 
 
@@ -78,7 +80,7 @@ def name_input(name_prompt: str) -> str:
     :param name_prompt: A string in the user's chosen language that asks them for their name
     :return: The user's response when asked for their name
     """
-    name = input('Choose a language:')
+    name = input(name_prompt)
     return name
 
 
@@ -104,6 +106,11 @@ if __name__ == '__main__':
         print("Invalid selection. Try again.")
         chosen_lang = language_input()
 
-    selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
-    chosen_name = name_input(selected_prompt)
+    selected_prompt = get_name_input(name_prompt_dict, chosen_lang)
+    chosen_name = name_input(selected_prompt + "\n")
     greet(chosen_name, greetings_dict, chosen_lang)
+
+
+    #x = {}
+    #new_key = len(x) + 1
+    #x[new_key] = "Test"

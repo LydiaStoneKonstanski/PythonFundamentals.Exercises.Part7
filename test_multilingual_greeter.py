@@ -13,9 +13,8 @@ class MultilingualGreeterTest(TestCase):
             2: "Spanish",
             3: "Portuguese"
         }
-
-        expected = "Please choose a language: \n" \
-                   "1: English\n" \
+        # "Please choose a language: \n" \ removed this because it is redundant to the play
+        expected = "1: English\n" \
                    "2: Spanish\n" \
                    "3: Portuguese\n"
 
@@ -93,3 +92,23 @@ class MultilingualGreeterTest(TestCase):
         }
         multilingual_greeter.greet("Jules Winnfield", greetings_dict, 3)
         self.assertEqual("Olá Jules Winnfield\n", stdout_mock.getvalue())
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_ask_user_or_admin_mode_is_valid(self):
+        admin_choice = [1, 2, 3]
+
+        test_cases = [
+            (1, True),
+            (2, True),
+            (3, True),
+            (4, False),
+            (5, False),
+            (10, False),
+            ('One', False)
+        ]
+
+
+        for key, expected in test_cases:
+            with self.subTest(f"{key}, {expected}"):
+                self.assertEqual(expected, multilingual_greeter.language_choice_is_valid(admin_choice, key))
+
