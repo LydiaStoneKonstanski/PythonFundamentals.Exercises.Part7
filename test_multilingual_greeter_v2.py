@@ -29,6 +29,7 @@ class MultilingualGreeterV2Test(TestCase):
 
     def test_language_choose_mode_is_valid(self):
         mode_choice = {
+            0: "Exit",
             1: "User Mode",
             2: "Admin Mode"
         }
