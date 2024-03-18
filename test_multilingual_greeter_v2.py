@@ -54,3 +54,8 @@ class MultilingualGreeterV2Test(TestCase):
         actual = multilingual_greeter_v2.admin_greeter('Y')
         self.assertEqual('Y', actual)
 
+#TODO learn to write tests with user input
+    #@patch('builtins.input', return_value='1')
+    #def test_choose_mode(self):
+    #    actual = multilingual_greeter_v2.choose_mode('1')
+    #    self.assertEqual('1', actual)

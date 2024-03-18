@@ -11,10 +11,6 @@ mode_dict = {0: "Exit", 1 : "User Mode", 2 : "Admin Mode"}
 new_language = " "
 
 
-#def print_mode_options(mode_options: Dict[int, str]) -> None:
-#    for key in mode_options:
-#        print(str(key) + ":", mode_options[key])
-
 #TODO test
 def choose_mode()-> int:
     mode_choice = input("Welcome to The Multilingual Greeter.\n" "For User Mode press 1\n" "For Admin Mode press 2\n" "To exit, press 0\n>> ")
